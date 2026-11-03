@@ -56,7 +56,9 @@ export function isGeminiNativePart(value: unknown): boolean {
   const record = asRecord(value);
   if (!record || isCanonicalEmbeddingItem(record)) return false;
   if (typeof record.text === "string" && record.text.trim().length > 0) {
-    return !("image" in record) && !("audio" in record) && !("video" in record) && !("pdf" in record);
+    return (
+      !("image" in record) && !("audio" in record) && !("video" in record) && !("pdf" in record)
+    );
   }
   if (asRecord(record.inline_data)?.data || asRecord(record.inlineData)?.data) return true;
   if (asRecord(record.file_data)?.file_uri || asRecord(record.fileData)?.fileUri) return true;
@@ -79,7 +81,9 @@ export function isGeminiNativeEmbedRequest(value: unknown): boolean {
 }
 
 export function isGeminiNativeEmbeddingItem(value: unknown): boolean {
-  return isGeminiNativePart(value) || isGeminiNativeContent(value) || isGeminiNativeEmbedRequest(value);
+  return (
+    isGeminiNativePart(value) || isGeminiNativeContent(value) || isGeminiNativeEmbedRequest(value)
+  );
 }
 
 /**

@@ -25,7 +25,9 @@ export function looksLikeJwt(token: string): boolean {
 
 export function decodeJwtExpMs(token: string): number {
   try {
-    const payload = JSON.parse(Buffer.from(stripBearerPrefix(token).split(".")[1] || "", "base64").toString("utf8"));
+    const payload = JSON.parse(
+      Buffer.from(stripBearerPrefix(token).split(".")[1] || "", "base64").toString("utf8")
+    );
     return typeof payload.exp === "number" ? payload.exp * 1000 : 0;
   } catch {
     return 0;

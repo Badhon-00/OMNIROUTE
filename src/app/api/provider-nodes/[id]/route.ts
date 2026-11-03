@@ -56,8 +56,18 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
     if (isValidationFailure(validation)) {
       return NextResponse.json({ error: validation.error }, { status: 400 });
     }
-    const { name, prefix, apiType, baseUrl, chatPath, modelsPath, customHeaders, iconUrl, dailyQuotaResetTimezone, dailyQuotaResetHour } =
-      validation.data;
+    const {
+      name,
+      prefix,
+      apiType,
+      baseUrl,
+      chatPath,
+      modelsPath,
+      customHeaders,
+      iconUrl,
+      dailyQuotaResetTimezone,
+      dailyQuotaResetHour,
+    } = validation.data;
     const node: any = await getProviderNodeById(id);
 
     if (!node) {
@@ -110,9 +120,8 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
     const updated = await updateProviderNode(id, updates);
 
     try {
-      const { registerMoonshotFetchersForNodes } = await import(
-        "@omniroute/open-sse/services/moonshotQuotaFetcher.ts"
-      );
+      const { registerMoonshotFetchersForNodes } =
+        await import("@omniroute/open-sse/services/moonshotQuotaFetcher.ts");
       registerMoonshotFetchersForNodes([
         {
           id: typeof updated?.id === "string" ? updated.id : id,
