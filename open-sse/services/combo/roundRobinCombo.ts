@@ -107,6 +107,7 @@ import {
   comboModelNotFoundResponse,
   isStreamReadinessFailureErrorBody,
   isLocalKeyPolicyBreachErrorBody,
+  isAccountSemaphoreCapacityFailure,
   isLocalQueueCapacityErrorBody,
   isProviderCircuitOpenResult,
   toRecordedTarget,
@@ -1261,7 +1262,7 @@ export async function handleRoundRobinCombo({
           const isTransient =
             !isStreamReadinessFailure &&
             !isTokenLimitBreach &&
-            !scopedFailure &&
+            (!scopedFailure || isAccountSemaphoreCapacityFailure(structuredError)) &&
             [408, 429, 500, 502, 503, 504].includes(result.status);
           // Explicit failover preference applies only while a sibling target remains.
           const hasNextRrTarget = offset + 1 < modelCount;
