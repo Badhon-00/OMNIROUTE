@@ -1806,6 +1806,10 @@ OmniRoute stands on the shoulders of giants. It started as a fork of **[9router]
   <tr><td nowrap><b><a href="https://github.com/steipete/CodexBar">CodexBar</a></b></td><td align="center">22,616</td><td>Identified the Grok Build quota surface; OmniRoute then verified and corrected the live wire format independently.</td></tr>
 </table>
 
+## AI host compatibility
+
+Connect Claude Code, Claude.ai (MCP tools), Claude Desktop, Codex, Gemini CLI, Cursor, OpenCode and other API/MCP-compatible clients using the correct protocol for each host. See the [Universal AI Host Compatibility guide](docs/guides/AI-HOST-COMPATIBILITY.md). For Claude.ai connector details, run `omniroute setup-claude-ai --remote https://YOUR-OMNIROUTE-HOST`.
+
 ## 📄 License
 
 MIT License - see [LICENSE](LICENSE) for details.
