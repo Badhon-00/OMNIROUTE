@@ -600,3 +600,8 @@ Use the dashboard or the `/api/mcp/audit` and `/api/mcp/audit/stats` REST endpoi
 | `tests/unit/notion-api.test.ts`                                          | Notion API client tests (7)                                      |
 | `tests/unit/notion-tools.test.ts`                                        | Notion tools scope enforcement tests (10)                        |
 | `tests/unit/db/notion.test.mjs`                                          | Notion DB module tests (3)                                       |
+
+
+## Cross-platform AI host setup
+
+See [Universal AI Host Compatibility](../guides/AI-HOST-COMPATIBILITY.md) for Claude.ai remote connectors, Claude Code, Claude Desktop, Codex, Gemini, Cursor, OpenCode and other MCP/API-compatible clients, including the current authentication boundaries.
