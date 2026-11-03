@@ -65,6 +65,7 @@ import { registerFccClaude } from "./fcc-claude.mjs";
 import { registerRun } from "./run.mjs";
 import { registerSetupCodex } from "./setup-codex.mjs";
 import { registerSetupClaude } from "./setup-claude.mjs";
+import { registerSetupClaudeAi } from "./setup-claude-ai.mjs";
 import { registerSetupOpencode } from "./setup-opencode.mjs";
 import { registerSetupCline } from "./setup-cline.mjs";
 import { registerSetupKilo } from "./setup-kilo.mjs";
@@ -156,6 +157,7 @@ export function registerCommands(program) {
   registerRun(program);
   registerSetupCodex(program);
   registerSetupClaude(program);
+  registerSetupClaudeAi(program);
   registerSetupOpencode(program);
   registerSetupCline(program);
   registerSetupKilo(program);
