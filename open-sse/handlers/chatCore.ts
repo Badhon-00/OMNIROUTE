@@ -219,6 +219,7 @@ import { isCompressionExcluded } from "../services/compression/exclusions.ts";
 import {
   defaultComboForRequest,
   isBuiltinStackedPipeline,
+  shouldRunResolvedPipeline,
   type RuntimeCompressionCombo,
 } from "./chatCore/compressionComboPredicates.ts";
 import { mergeCompressionComboIntoConfig } from "./chatCore/compressionComboConfig.ts";
@@ -1320,6 +1321,7 @@ async function handleChatCoreInner({
       }
       let compressionComboKey = comboName ?? null;
       let compressionComboApplied = false;
+      let defaultCompressionComboApplied = false;
       // Combo → config merge extracted to chatCore/compressionComboConfig.ts (chatCore slice 2).
       const applyCompressionComboConfig = (
         compressionCombo: RuntimeCompressionCombo | null,
@@ -1476,6 +1478,7 @@ async function handleChatCoreInner({
             { config, header: compressionHeader, combos: namedCombos }
           );
           if (applyCompressionComboConfig(defaultCompressionCombo)) {
+            defaultCompressionComboApplied = true;
             log?.debug?.(
               "COMPRESSION",
               `Default compression combo applied: ${defaultCompressionCombo?.id}`
@@ -1589,8 +1592,13 @@ async function handleChatCoreInner({
       if (
         mode === "stacked" &&
         compressionPlan.stackedPipeline.length > 0 &&
-        !compressionComboApplied &&
-        !config.compressionComboId
+        shouldRunResolvedPipeline({
+          comboApplied: compressionComboApplied,
+          comboIsDefault: defaultCompressionComboApplied,
+          comboIdConfigured: Boolean(config.compressionComboId),
+          adaptiveStagesApplied:
+            (adaptiveTelemetry as { stagesApplied: string[] } | null)?.stagesApplied.length ?? 0,
+        })
       ) {
         config = {
           ...config,
